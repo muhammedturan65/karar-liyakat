@@ -34,10 +34,10 @@ function sendEmail($to_email, $to_name, $subject, $body) {
         
         // $mail->SMTPDebug = SMTP::DEBUG_SERVER; // Hata ayıklama için: 2 veya SMTP::DEBUG_SERVER detaylı logları gösterir.
         $mail->isSMTP();
-        $mail->Host       = 'mail.liyakat.net';
+        $mail->Host       = 'mailxx.liyakat.net';
         $mail->SMTPAuth   = true;
-        $mail->Username   = 'dogrulama@liyakat.net';
-        $mail->Password   = 'Muhammed123.';
+        $mail->Username   = 'xxxxxx@liyakat.net';
+        $mail->Password   = 'xxxxx';
         
         // DİKKAT: Port 465 genellikle SMTPS (SSL) şifrelemesi kullanır.
         // Port 587 ise genellikle STARTTLS şifrelemesi kullanır.
@@ -100,4 +100,5 @@ function getVerificationEmailTemplate($verification_code) {
     ';
     return $body;
 }
+
 ?>
