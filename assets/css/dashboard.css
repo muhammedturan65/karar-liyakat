@@ -1,0 +1,272 @@
+/* assets/css/dashboard.css - Arama Paneli Özel Stilleri */
+
+body {
+    background-color: #f8f9fa; /* Arka planı hafif gri yap */
+}
+
+/* Navigasyon barını ana içerikten ayır */
+.main-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent; /* Arka planı şeffaf yap */
+    border-bottom: none; /* Alt çizgiyi kaldır */
+    padding-top: 20px;
+    padding-bottom: 0;
+}
+
+.dashboard-container {
+    max-width: 900px;
+    margin: 20px auto 0 auto;
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 16px;
+    border-top: 5px solid #1e3a8a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.header-content {
+    text-align: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+.header-content h1 {
+    font-size: 2.5rem;
+    color: #1e3a8a;
+    font-family: 'Roboto Slab', serif;
+}
+
+/* --- Karanlık Mod Uyumluluğu --- */
+body.dark-mode {
+    background-color: #181a1b;
+}
+body.dark-mode .main-nav {
+    background-color: transparent;
+}
+body.dark-mode .dashboard-container {
+    background-color: #2d2d30;
+    border-top-color: #8ab4f8;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+body.dark-mode .header-content {
+    border-bottom-color: #444;
+}
+body.dark-mode .header-content h1 {
+    color: #8ab4f8;
+}
+/* --- assets/css/dashboard.css sonuna ekleyin --- */
+
+.panel-container { display: flex; gap: 30px; align-items: flex-start; }
+.panel-sidebar { width: 280px; flex-shrink: 0; }
+.panel-content { flex-grow: 1; }
+.folder-list-menu { list-style: none; padding: 0; margin: 0; }
+.folder-list-menu li { position: relative; }
+.folder-list-menu li a { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; text-decoration: none; color: #495057; font-weight: 600; border-radius: 8px; transition: all 0.2s; }
+.folder-list-menu li a:hover { background-color: #e9ecef; }
+.folder-list-menu li.active a { background-color: #1e3a8a; color: #fff; }
+.decision-count { font-size: 0.8rem; background-color: rgba(0,0,0,0.1); padding: 2px 6px; border-radius: 10px; }
+.folder-list-menu li.active .decision-count { background-color: rgba(255,255,255,0.2); }
+.delete-folder-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; color: #ced4da; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
+.folder-list-menu li:hover .delete-folder-btn { opacity: 1; }
+.delete-folder-btn:hover { color: #d9534f; }
+.saved-decisions-list li { transition: opacity 0.5s; }
+.decision-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 0.8rem; color: #6c757d; }
+.remove-decision-btn { background: none; border: 1px solid #ced4da; color: #d9534f; padding: 4px 8px; border-radius: 6px; cursor: pointer; }
+
+body.dark-mode .panel-sidebar {
+    background-color: #181a1b; /* Arka planı çok koyu yap */
+    border: 1px solid #3e3e42; /* Hafif bir kenarlık ekle */
+}
+
+body.dark-mode .panel-sidebar h3 {
+    border-bottom-color: #444;
+    color: #f1f3f5; /* Başlık rengini aç */
+}
+
+body.dark-mode .folder-list-menu li.empty-folder-list {
+    color: #adb5bd; /* "Klasör yok" metnini soluklaştır */
+}
+
+body.dark-mode .folder-list-menu li a {
+    color: #e8e6e3; /* Link metin rengini aç */
+}
+
+body.dark-mode .folder-list-menu li a:hover {
+    background-color: #3e3e42; /* Üzerine gelince arka planı hafifçe değiştir */
+}
+
+body.dark-mode .folder-list-menu li.active a {
+    background-color: #8ab4f8; /* Aktif klasör arka planını vurgu mavisi yap */
+    color: #202124; /* Aktif klasör metnini koyu yap */
+}
+
+body.dark-mode .decision-count {
+    background-color: rgba(255, 255, 255, 0.1); /* Karar sayacı arka planını ayarla */
+    color: #e8e6e3;
+}
+
+body.dark-mode .folder-list-menu li.active .decision-count {
+    background-color: rgba(0, 0, 0, 0.2); /* Aktif klasördeki sayacın arka planını koyulaştır */
+    color: #fff;
+}
+
+body.dark-mode .delete-folder-btn {
+    color: #495057; /* Silme butonunu daha görünür yap */
+}
+
+body.dark-mode .folder-list-menu li:hover .delete-folder-btn {
+    opacity: 0.7; /* Fare üzerine gelince her zaman görünsün */
+}
+
+body.dark-mode .delete-folder-btn:hover {
+    color: #ff8c8c; /* Silme butonu üzerine gelince kırmızı tonu */
+    opacity: 1;
+}
+
+body.dark-mode .panel-content p {
+    color: #adb5bd; /* İçerik metinlerini soluklaştır */
+}
+
+body.dark-mode .decision-meta {
+    color: #6c757d; /* Daha az önemli meta verileri için renk */
+}
+
+body.dark-mode .remove-decision-btn {
+    border-color: #495057;
+    color: #ff8c8c;
+}
+body.dark-mode .remove-decision-btn:hover {
+    background-color: rgba(255, 140, 140, 0.1);
+    border-color: #ff8c8c;
+}
+.annotations-list {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.annotation-group {
+    border: 1px solid #dee2e6;
+    border-radius: 12px;
+    overflow: hidden; /* Kenarlıkları düzgün göstermek için */
+}
+.annotation-decision-title {
+    background-color: #f8f9fa;
+    padding: 15px 20px;
+    margin: 0;
+    font-size: 1.1rem;
+    font-family: 'Roboto Slab', serif;
+}
+.annotation-decision-title a {
+    text-decoration: none;
+    color: #1e3a8a;
+}
+.annotation-item {
+    padding: 20px;
+    border-top: 1px solid #eee;
+}
+.highlighted-text {
+    font-style: italic;
+    color: #6c757d;
+    border-left: 3px solid #0d6efd;
+    padding-left: 15px;
+    margin: 0 0 10px 0;
+}
+.note-text {
+    background-color: #fff9e6; /* Hafif sarı arka plan */
+    padding: 10px 15px;
+    border-radius: 8px;
+    margin: 0;
+    color: #5c3c00;
+}
+
+/* Karanlık Mod */
+body.dark-mode .annotation-group { border-color: #444; }
+body.dark-mode .annotation-decision-title { background-color: #181a1b; border-bottom: 1px solid #444; }
+body.dark-mode .annotation-decision-title a { color: #8ab4f8; }
+body.dark-mode .annotation-item { border-top-color: #3e3e42; }
+body.dark-mode .highlighted-text { color: #adb5bd; border-left-color: #8ab4f8; }
+body.dark-mode .note-text { background-color: #2c2a21; color: #fff3cd; }
+/* assets/css/dashboard.css sonuna ekleyin */
+.panel-content .search-form label {
+    font-weight: 600;
+    margin-bottom: -5px;
+    font-size: 0.9rem;
+}
+body.dark-mode .panel-content .search-form label { color: #adb5bd; }
+/* --- assets/css/dashboard.css sonuna ekleyin --- */
+
+.settings-section {
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 12px;
+    border: 1px solid #e9ecef;
+}
+.settings-section h4 {
+    margin-top: 0;
+    font-family: 'Roboto Slab', serif;
+}
+.settings-section p {
+    font-size: 0.95rem;
+    color: #6c757d;
+}
+
+.two-factor-status {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.two-factor-status .status-active {
+    color: #198754; /* Yeşil */
+    font-weight: 700;
+}
+.two-factor-status .status-inactive {
+    color: #6c757d; /* Gri */
+    font-weight: 700;
+}
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.btn-success {
+    background-color: #198754;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* Karanlık Mod */
+body.dark-mode .settings-section {
+    background-color: #181a1b;
+    border-color: #444;
+}
+body.dark-mode .settings-section p { color: #adb5bd; }
+body.dark-mode .two-factor-status .status-active { color: #52b788; }
+body.dark-mode .two-factor-status .status-inactive { color: #6c757d; }
+/* assets/css/dashboard.css sonuna ekleyin */
+
+/* --- MOBİL UYUMLULUK --- */
+@media (max-width: 768px) {
+
+    /* Panel Sayfası (Klasörlerim, Profilim) */
+    .panel-container {
+        flex-direction: column; /* Kenar çubuğunu ve içeriği alt alta diz */
+        gap: 20px;
+    }
+    .panel-sidebar {
+        width: 100%; /* Kenar çubuğu tam genişlik kaplasın */
+        box-sizing: border-box;
+    }
+
+    /* Arama Paneli Formları */
+    .form-row {
+        flex-direction: column; /* Yan yana inputları alt alta diz */
+    }
+}

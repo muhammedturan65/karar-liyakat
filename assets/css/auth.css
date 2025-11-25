@@ -1,0 +1,193 @@
+/**
+ * auth.css - Giriş ve Kayıt Sayfaları Özel Stilleri
+ * 
+ * Bu dosya, sadece kullanıcı doğrulama (authentication) sayfalarının
+ * görünümünü yönetir.
+ */
+
+/* --- Genel Sayfa Yapısı --- */
+body {
+    background-color: #f8f9fa; /* Arka planı hafif gri yap */
+}
+
+/* Ana Form Konteyneri */
+.auth-container {
+    max-width: 500px;
+    margin: 10vh auto 0 auto; /* Sayfanın dikeyde ortalanmasına yardımcı olur */
+    background-color: #ffffff;
+    padding: 30px 40px 40px 40px;
+    border-radius: 16px;
+    border-top: 5px solid #1e3a8a;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* --- Başlık ve Navigasyon Alanı --- */
+.page-header.integrated-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 30px;
+}
+
+.header-main .logo {
+    font-family: 'Roboto Slab', serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: #1e3a8a;
+}
+
+.header-actions.user-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Navigasyon Linkleri (style.css'deki genel .nav-link'i ezer) */
+.nav-link {
+    text-decoration: none;
+    color: #495057;
+    font-weight: 600;
+    padding: 8px 16px;
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+}
+.nav-link:hover {
+    background-color: #f1f3f5;
+}
+.nav-link.highlight-btn {
+    background-color: #1e3a8a;
+    color: #fff;
+}
+.nav-link.highlight-btn:hover {
+    background-color: #1c3370;
+}
+
+/* O anki aktif sayfayı belirten stil */
+
+.nav-link.active {
+    color: #ffffff;
+    font-weight: 700;
+    background-color: #eef2ff; /* Vurgu için hafif mavi arka plan */
+}
+.nav-link.highlight-btn.active {
+    background-color: #1c3370;
+    box-shadow: inset 0 2px 4px rgba(0,0,0,0.2); /* İçeri gömülmüş efekti */
+}
+
+/* Form Başlığı */
+.header-content {
+    padding-bottom: 0;
+    margin-bottom: 25px;
+}
+.header-content h1.form-title {
+    font-size: 2.2rem;
+    color: #333;
+    font-family: 'Roboto Slab', serif;
+}
+
+
+/* --- Form Altı Link Stilleri --- */
+.form-footer-link {
+    text-align: center;
+    margin-top: 25px;
+    font-size: 15px;
+    color: #6c757d;
+}
+.form-footer-link a {
+    color: #1e3a8a;
+    font-weight: 600;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    padding-bottom: 2px;
+    transition: border-color 0.2s;
+}
+.form-footer-link a:hover {
+    border-bottom-color: #1e3a8a;
+}
+
+/* --- Bildirim Mesajları --- */
+.form-success {
+    color: #0f5132;
+    text-align: center;
+    font-weight: 600;
+    padding: 15px;
+    background-color: #d1e7dd;
+    border: 1px solid #badbcc;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.error {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+/* --- Karanlık Mod Uyumluluğu --- */
+body.dark-mode {
+    background-color: #181a1b;
+}
+
+body.dark-mode .auth-container {
+    background-color: #2d2d30;
+    border-top-color: #8ab4f8;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+body.dark-mode .page-header.integrated-header {
+    border-bottom-color: #444;
+}
+
+body.dark-mode .header-main .logo {
+    color: #8ab4f8;
+}
+
+body.dark-mode .nav-link {
+    color: #e8e6e3;
+}
+
+body.dark-mode .nav-link:hover {
+    background-color: #3e3e42;
+}
+
+body.dark-mode .nav-link.highlight-btn {
+    background-color: #8ab4f8;
+    color: #202124;
+}
+
+body.dark-mode .nav-link.highlight-btn:hover {
+    background-color: #9ac0fa;
+}
+
+body.dark-mode .nav-link.active {
+    color: #9ac0fa;
+    background-color: #3e3e42;
+}
+body.dark-mode .nav-link.highlight-btn.active {
+    background-color: #9ac0fa;
+    color: #181a1b;
+}
+
+body.dark-mode .header-content h1.form-title {
+    color: #f1f3f5;
+}
+
+body.dark-mode .form-footer-link {
+    color: #adb5bd;
+}
+
+body.dark-mode .form-footer-link a {
+    color: #9ac0fa;
+}
+
+body.dark-mode .form-footer-link a:hover {
+    border-bottom-color: #9ac0fa;
+}
+
+body.dark-mode .form-success {
+    background-color: #0a3622;
+    border-color: #1a4f35;
+    color: #a3cfbb;
+}

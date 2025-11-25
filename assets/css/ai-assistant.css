@@ -1,0 +1,145 @@
+/* assets/css/ai-assistant.css - AI Sorgu Asistanı Özel Stilleri */
+
+/* Genel Sayfa Yapısı */
+body {
+    padding: 20px;
+    background-color: transparent;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #333;
+}
+
+.ai-assistant-content {
+    max-width: 100%;
+}
+
+.ai-assistant-content h3 {
+    font-family: 'Roboto Slab', serif;
+    color: #1e3a8a;
+    text-align: center;
+    font-size: 1.6rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.ai-assistant-content p {
+    text-align: center;
+    color: #6c757d;
+    margin-top: 0;
+    margin-bottom: 25px;
+}
+
+/* Form Elemanları */
+#ai-query-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#ai-query-form label {
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+#ai-query-form textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #d1d5db;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 80px;
+    box-sizing: border-box;
+}
+#ai-query-form textarea:focus {
+    outline: none;
+    border-color: #1e3a8a;
+}
+
+#ai-query-form button[type="submit"] {
+    background-color: #1e3a8a;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* AI Yanıt Alanı */
+#ai-response-area {
+    margin-top: 20px;
+}
+#ai-status {
+    text-align: center;
+    font-weight: 600;
+    color: #495057;
+    margin-bottom: 15px;
+}
+#ai-spinner {
+    margin: 0 auto 15px auto;
+}
+
+.generated-query-container {
+    position: relative;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+.generated-query-container pre {
+    padding: 15px;
+    margin: 0;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+.generated-query-container code {
+    font-family: monospace;
+    font-size: 0.95rem;
+}
+#copy-query-btn {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #e9ecef;
+    border: 1px solid #dee2e6;
+    color: #495057;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+#query-explanation {
+    background-color: #eef5ff;
+    padding: 15px;
+    border-radius: 8px;
+    color: #334155;
+    border: 1px solid #dbeafe;
+}
+
+#use-query-btn {
+    width: 100%;
+    margin-top: 15px;
+    background-color: #198754; /* Yeşil */
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+/* --- Karanlık Mod --- */
+body.dark-mode { color: #e8e6e3; }
+body.dark-mode .ai-assistant-content h3 { color: #8ab4f8; }
+body.dark-mode .ai-assistant-content p { color: #adb5bd; }
+body.dark-mode #ai-query-form textarea { background-color: #181a1b; border-color: #555; color: #e8e6e3; }
+body.dark-mode #ai-query-form textarea:focus { border-color: #8ab4f8; }
+body.dark-mode #ai-query-form button[type="submit"] { background-color: #8ab4f8; color: #202124; }
+body.dark-mode #ai-status { color: #ced4da; }
+body.dark-mode .generated-query-container { background-color: #181a1b; border-color: #495057; }
+body.dark-mode #copy-query-btn { background-color: #343a40; border-color: #495057; color: #e8e6e3; }
+body.dark-mode #query-explanation { background-color: #1e293b; border-color: #334155; color: #cbd5e1; }
+body.dark-mode #use-query-btn { background-color: #28a745; }

@@ -1,0 +1,679 @@
+/**
+ * style.css - Ana Stil Dosyası (Nihai Sürüm)
+ * 
+ * Bu dosya, projenin tüm bileşenleri için gerekli olan,
+ * tekrarlardan arındırılmış ve organize edilmiş stil kurallarını içerir.
+ */
+
+/* --- 1. GENEL ve TEMEL AYARLAR --- */
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap');
+
+body { 
+    font-family: 'Source Sans Pro', sans-serif; 
+    background-color: #f5f7fa; 
+    line-height: 1.8; 
+    margin: 0; 
+    padding: 0; 
+    color: #333; 
+}
+.hidden { display: none !important; }
+.error { color: #d93025; text-align: center; font-weight: 600; padding: 20px; background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 8px; }
+.form-success { color: #0f5132; text-align: center; font-weight: 600; padding: 15px; background-color: #d1e7dd; border: 1px solid #badbcc; border-radius: 8px; margin-bottom: 20px; }
+.form-divider { margin: 40px 0; border: none; border-top: 1px solid #eee; }
+
+/* --- 2. ANA KONTEYNER ve BAŞLIK YAPILARI --- */
+.container { background-color: #fff; max-width: 900px; margin: 20px auto; padding: 30px 40px; border-radius: 8px; border-top: 5px solid #1e3a8a; box-shadow: 0 4px 25px rgba(0,0,0,0.07); }
+.header-content { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 25px; }
+.header-content h1 { font-size: 2.5rem; color: #1e3a8a; font-family: 'Roboto Slab', serif; }
+.form-title { text-align: center; color: #555; font-family: 'Roboto Slab', serif; margin-bottom: 20px; }
+
+/* --- 3. NAVİGASYON BARI (header.php) --- */
+.main-nav { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 20px 40px; box-sizing: border-box; }
+.main-nav .logo { font-family: 'Roboto Slab', serif; font-weight: 700; font-size: 1.4rem; text-decoration: none; color: #1e3a8a; }
+.main-nav .nav-right, .main-nav .nav-links { display: flex; align-items: center; gap: 20px; }
+.nav-link { text-decoration: none; color: #495057; font-weight: 600; font-size: 15px; padding: 8px 12px; border-radius: 8px; transition: background-color 0.2s; }
+.nav-link:hover { background-color: #f1f3f5; }
+.nav-link.highlight-btn { background-color: #1e3a8a; color: #fff; }
+.nav-link.highlight-btn:hover { background-color: #1c3370; }
+.user-info { display: flex; align-items: center; gap: 15px; padding-left: 20px; border-left: 1px solid #dee2e6; }
+.user-info span, .nav-user-email { font-weight: 500; color: #6c757d; font-size: 14px; }
+.user-info .logout-btn { background: none; border: none; color: #d9534f; font-weight: 600; cursor: pointer; font-size: 15px; text-decoration: none; }
+.user-info .logout-btn:hover { text-decoration: underline; }
+
+/* --- 4. FORM ve GİRİŞ ELEMANLARI --- */
+.search-form { display: flex; flex-direction: column; position: relative; gap: 15px; }
+.search-form input { width: 100%; padding: 12px 15px; border: 2px solid #d1d5db; border-radius: 8px; font-size: 1em; box-sizing: border-box; }
+.search-form button[type="submit"] { background-color: #1e3a8a; color: #fff; border: none; padding: 12px 30px; border-radius: 8px; font-size: 1em; cursor: pointer; transition: background-color 0.2s; }
+.search-form button[type="submit"]:hover { background-color: #1c3370; }
+.form-row { display: flex; gap: 10px; }
+.form-row input { width: 100%; }
+
+/* --- 5. MODALLAR (AI Sorgu, Klasör) --- */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0, 0, 0, 0.6); display: flex; justify-content: center; align-items: center; z-index: 2000; padding: 20px; }
+.modal-content { position: relative; background-color: white; border-radius: 16px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); width: 100%; max-width: 800px; max-height: 90vh; padding: 30px; }
+.modal-content.iframe-modal { padding: 0; overflow: hidden; }
+.modal-content.iframe-modal iframe { display: block; width: 100%; height: 80vh; }
+.modal-close-button { position: absolute; top: 15px; right: 15px; background: #f1f3f5; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 20px; line-height: 30px; text-align: center; cursor: pointer; color: #868e96; z-index: 2001; }
+.modal-close-button:hover { background-color: #dee2e6; color: #495057; }
+
+/* --- 6. KARAR SAYFASI BİLEŞENLERİ --- */
+.page-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #eee; padding-bottom: 20px; margin-bottom: 25px; }
+.header-main h1 { font-family: 'Roboto Slab', serif; color: #1e3a8a; margin: 0; font-size: 2rem; }
+.header-main p { margin: 0; color: #6c757d; font-weight: 500; }
+.header-actions { display: flex; align-items: center; gap: 10px; }
+.action-btn { background-color: #f8f9fa; border: 1px solid #dee2e6; color: #495057; border-radius: 8px; width: 40px; height: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; transition: all 0.2s; }
+.action-btn:hover { background-color: #e9ecef; color: #212529; }
+.action-btn svg { width: 20px; height: 20px; }
+.download-button-main { display: inline-flex; align-items: center; gap: 8px; background-color: #1e3a8a; color: #fff; height: 40px; padding: 0 16px; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.2s; }
+.download-button-main:hover { background-color: #1c3370; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+.download-button-main svg { width: 18px; height: 18px; }
+.action-divider { width: 1px; height: 24px; background-color: #dee2e6; margin: 0 5px; }
+
+/* --- 7. AI BİLEŞENLERİ (Özet, Butonlar vb.) --- */
+.ai-summary-box { background-color: #eef5ff; border: 1px solid #dbeafe; padding: 20px 25px; margin-bottom: 30px; border-radius: 12px; }
+.ai-summary-box h4 { margin: 0 0 10px 0; color: #1e3a8a; font-family: 'Roboto Slab', serif; font-size: 1.2rem; display: flex; align-items: center; gap: 8px; }
+.ai-summary-box h4 svg { width: 20px; height: 20px; }
+.ai-summary-box p { margin: 0 0 15px 0; color: #334155; }
+.ai-summary-box .keywords { margin-top: 10px; font-size: 0.9em; color: #475569; }
+.ai-summary-box .keywords strong { color: #1e3a8a; }
+.ai-summary-placeholder { padding: 20px; text-align: center; background-color: #f8f9fa; border: 1px dashed #dee2e6; border-radius: 12px; margin-bottom: 30px; }
+.ai-actions { margin-top: 20px; padding-top: 15px; border-top: 1px solid #dbeafe; text-align: right; }
+.ai-action-btn { background-color: transparent; border: 1px solid #b0c4de; color: #4682b4; border-radius: 20px; padding: 8px 16px; font-size: 14px; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; transition: all 0.2s; }
+.ai-action-btn:hover { background-color: #f0f8ff; border-color: #4682b4; }
+.ai-action-btn:disabled { cursor: not-allowed; opacity: 0.7; }
+.ai-assistant-launcher { text-align: right; margin-bottom: -10px; position: relative; z-index: 10; }
+.ai-assistant-launcher button { background-color: #e9ecef; color: #495057; border: 1px solid #dee2e6; border-radius: 20px; padding: 6px 12px; font-size: 14px; font-weight: 500; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; transition: all 0.2s; }
+.ai-assistant-launcher button:hover { background-color: #dee2e6; color: #212529; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.ai-assistant-launcher svg { width: 16px; height: 16px; }
+
+/* --- 8. SABİT/YARDIMCI BİLEŞENLER (Tema, Yukarı Çık) --- */
+.theme-toggle-button { position: fixed; top: 20px; left: 20px; width: 40px; height: 40px; border-radius: 50%; border: 1px solid #d1d5db; background-color: #fff; cursor: pointer; z-index: 1001; display: flex; justify-content: center; align-items: center; transition: all 0.3s; }
+.theme-toggle-button:hover { transform: scale(1.1); }
+.theme-toggle-button svg { width: 20px; height: 20px; }
+.icon-dark { display: none; }
+.back-to-top { position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background-color: #1e3a8a; color: white; border: none; border-radius: 50%; font-size: 24px; cursor: pointer; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: all 0.3s; }
+.back-to-top.visible { opacity: 1; visibility: visible; display: flex; }
+
+/* --- 9. SONUÇ LİSTELERİ (Arama, Benzer Karar, Kaydedilen Karar) --- */
+.search-results-list { list-style: none; padding: 0; margin-top: 30px; }
+.search-results-list li { background-color: #f8f9fa; border: 1px solid #dee2e6; border-radius: 12px; padding: 20px; margin-bottom: 15px; transition: all 0.2s; }
+.search-results-list li:hover { transform: translateY(-3px); box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08); border-color: #ced4da; }
+.search-results-list a { text-decoration: none; color: #1e3a8a; font-weight: 600; font-size: 1.1rem; display: block; margin-bottom: 8px; }
+.search-results-list a strong { font-family: 'Roboto Slab', serif; }
+.search-results-list p { margin: 0; color: #6c757d; font-size: 0.9rem; }
+.saved-decisions-list li { transition: opacity 0.5s; }
+.decision-meta { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; font-size: 0.8rem; color: #6c757d; }
+.remove-decision-btn { background: none; border: 1px solid #ced4da; color: #d9534f; padding: 4px 8px; border-radius: 6px; cursor: pointer; font-weight: 600; }
+
+/* --- 10. YÜKLENİYOR ANİMASYONLARI --- */
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+.spinner { border: 4px solid rgba(0, 0, 0, .1); width: 36px; height: 36px; border-radius: 50%; border-left-color: #1e3a8a; animation: spin 1s ease infinite; position: absolute; top: 50%; left: 50%; margin-top: -38px; margin-left: -18px; }
+.mini-spinner { border: 3px solid rgba(0, 0, 0, .1); width: 20px; height: 20px; border-radius: 50%; border-left-color: #1e3a8a; animation: spin 1s ease infinite; }
+
+/* --- 11. SOHBET ASİSTANI --- */
+
+/* Gezgin Sohbet Balonu */
+.chat-bubble { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background-color: #1e3a8a; color: white; border-radius: 50%; border: none; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); z-index: 1998; transition: all 0.3s ease; }
+.chat-bubble:hover { transform: scale(1.1); background-color: #1c3370; }
+/* Ana Sohbet Paneli */
+.chat-container { position: fixed; bottom: 100px; right: 30px; width: 400px; max-width: 90vw; height: 60vh; max-height: 700px; background-color: #fff; border-radius: 16px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15); z-index: 1999; display: flex; flex-direction: column; overflow: hidden; transition: opacity 0.3s, transform 0.3s; }
+.chat-container.hidden { opacity: 0; transform: translateY(20px) scale(0.95); pointer-events: none; }
+/* Sohbet Başlığı */
+.chat-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; background-color: #f8f9fa; border-bottom: 1px solid #dee2e6; }
+.chat-header h3 { margin: 0; font-family: 'Roboto Slab', serif; color: #333; font-size: 1.1rem; }
+.chat-header .chat-actions { display: flex; align-items: center; gap: 10px; }
+.chat-header .chat-actions a, .chat-header .chat-actions button { background: none; border: none; cursor: pointer; font-size: 24px; color: #868e96; padding: 0; width: 28px; height: 28px; display: flex; justify-content: center; align-items: center; }
+.chat-header .chat-actions a:hover, .chat-header .chat-actions button:hover { color: #333; }
+.chat-header .chat-actions svg { width: 18px; height: 18px; }
+/* Mesajlar Alanı */
+.chat-messages { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+.chat-message { padding: 10px 15px; border-radius: 12px; max-width: 85%; line-height: 1.5; word-wrap: break-word; }
+.chat-message.user { background-color: #1e3a8a; color: white; border-bottom-right-radius: 4px; align-self: flex-end; }
+.chat-message.assistant { background-color: #e9ecef; color: #212529; border-bottom-left-radius: 4px; align-self: flex-start; position: relative; }
+/* Mesaj İçi Markdown Stilleri */
+.chat-message.assistant p { margin: 0 0 10px 0; }
+.chat-message.assistant p:last-child { margin-bottom: 0; }
+.chat-message.assistant strong, .chat-message.assistant b { font-weight: 600; }
+.chat-message.assistant ul, .chat-message.assistant ol { padding-left: 20px; margin: 10px 0; }
+.chat-message.assistant li { margin-bottom: 5px; }
+/* Kopyalama Butonu */
+.copy-chat-btn { position: absolute; bottom: 8px; right: 8px; background-color: rgba(0, 0, 0, 0.05); border: none; border-radius: 6px; width: 28px; height: 28px; cursor: pointer; display: flex; justify-content: center; align-items: center; color: #6c757d; opacity: 0; visibility: hidden; transition: all 0.2s; }
+.chat-message.assistant:hover .copy-chat-btn { opacity: 1; visibility: visible; }
+.copy-chat-btn:hover { background-color: rgba(0, 0, 0, 0.1); color: #212529; }
+.copy-chat-btn svg { width: 16px; height: 16px; }
+.copy-chat-btn.copied-text { font-size: 12px; font-weight: 600; width: auto; padding: 0 8px; background-color: #d1e7dd; color: #0f5132; }
+/* Örnek Soru ve Aksiyon Butonları */
+.sample-questions-container { display: flex; flex-direction: column; gap: 10px; padding-bottom: 10px; }
+.chat-action-buttons { padding: 0 15px 10px 15px; border-top: 1px solid #dee2e6; background-color: #fff; }
+.sample-question-btn { width: 100%; background-color: transparent; border: 1px solid #ced4da; padding: 10px; border-radius: 8px; text-align: left; cursor: pointer; font-size: 14px; font-weight: 500; color: #495057; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+.sample-question-btn:hover { background-color: #f8f9fa; border-color: #adb5bd; }
+/* Giriş Alanı */
+.chat-input-area { display: flex; padding: 15px; border-top: 1px solid #dee2e6; gap: 10px; background-color: #f8f9fa; }
+.chat-input-area textarea { flex-grow: 1; border: 1px solid #ced4da; border-radius: 8px; padding: 10px; resize: none; font-family: inherit; font-size: 1rem; max-height: 100px; }
+.chat-input-area textarea:focus { outline: none; border-color: #1e3a8a; box-shadow: 0 0 0 2px rgba(30, 58, 138, 0.2); }
+.chat-input-area button { background-color: #1e3a8a; color: white; border: none; border-radius: 8px; padding: 0 15px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+.chat-input-area button:hover { background-color: #1c3370; }
+.chat-input-area button:disabled { background-color: #adb5bd; cursor: not-allowed; }
+.chat-loader-container { display: flex; justify-content: center; align-items: center; padding: 10px; }
+.chat-loader { width: 24px; height: 24px; border: 3px solid #dee2e6; border-top-color: #1e3a8a; border-radius: 50%; animation: spin 1s linear infinite; }
+
+/* --- 12. "PANELİM" SAYFASI (dashboard.php, my_folders.php) --- */
+.panel-container { display: flex; gap: 30px; align-items: flex-start; }
+.panel-sidebar { width: 280px; flex-shrink: 0; background-color: #f8f9fa; padding: 20px; border-radius: 12px; }
+.panel-sidebar h3 { margin-top: 0; font-family: 'Roboto Slab', serif; border-bottom: 1px solid #dee2e6; padding-bottom: 10px; }
+.folder-list-menu { list-style: none; padding: 0; margin: 0; }
+.folder-list-menu li { position: relative; }
+.folder-list-menu li a { display: flex; justify-content: space-between; align-items: center; padding: 12px 15px; text-decoration: none; color: #495057; font-weight: 600; border-radius: 8px; transition: all 0.2s; }
+.folder-list-menu li a:hover { background-color: #e9ecef; }
+.folder-list-menu li.active a { background-color: #1e3a8a; color: #fff; }
+.decision-count { font-size: 0.8rem; background-color: rgba(0,0,0,0.08); padding: 2px 6px; border-radius: 10px; }
+.folder-list-menu li.active .decision-count { background-color: rgba(255,255,255,0.2); }
+.delete-folder-btn { position: absolute; top: 10px; right: 10px; background: none; border: none; font-size: 20px; color: #ced4da; cursor: pointer; opacity: 0; transition: opacity 0.2s; }
+.folder-list-menu li:hover .delete-folder-btn { opacity: 1; }
+.delete-folder-btn:hover { color: #d9534f; }
+.panel-content { flex-grow: 1; }
+.panel-content h2 { margin-top: 0; font-family: 'Roboto Slab', serif; }
+
+/* --- 13. NOT ALMA / VURGULAMA --- */
+.selection-popup { position: absolute; background-color: #333; color: white; border-radius: 8px; padding: 5px; display: flex; gap: 5px; z-index: 1000; box-shadow: 0 4px 12px rgba(0,0,0,0.2); }
+.selection-popup button { background-color: #555; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+.selection-popup button:hover { background-color: #777; }
+mark.highlight { background-color: #fffb00 !important; color: inherit !important; cursor: help; padding: 2px 0; border-radius: 3px; }
+
+/* --- 14. SAYFALAMA (Pagination) --- */
+.pagination-container { margin-top: 40px; display: flex; justify-content: center; }
+.pagination { list-style: none; padding: 0; margin: 0; display: flex; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
+.pagination li a, .pagination li span { display: block; padding: 10px 15px; background-color: #fff; border-left: 1px solid #dee2e6; color: #1e3a8a; text-decoration: none; font-weight: 600; transition: background-color 0.2s; }
+.pagination li:first-child a, .pagination li:first-child span { border-left: none; }
+.pagination li a:hover { background-color: #f8f9fa; }
+.pagination li.active span { background-color: #1e3a8a; color: #fff; cursor: default; }
+
+/* =================================================================== */
+/* --- 15. KARANLIK MOD (DARK MODE) --- */
+/* =================================================================== */
+
+body.dark-mode { background-color: #181a1b; color: #e8e6e3; }
+/* Konteyner ve Başlıklar */
+body.dark-mode .container { background-color: #2d2d30; border-top-color: #8ab4f8; }
+body.dark-mode .header-content { border-bottom-color: #444; }
+body.dark-mode .header-content h1, body.dark-mode .form-title { color: #f1f3f5; }
+body.dark-mode .page-header { border-bottom-color: #444; }
+body.dark-mode .header-main h1 { color: #8ab4f8; }
+body.dark-mode .header-main p { color: #adb5bd; }
+/* Form Elemanları */
+body.dark-mode .search-form input { background-color: #181a1b; border-color: #555; color: #e8e6e3; }
+body.dark-mode .search-form button[type="submit"] { background-color: #8ab4f8; color: #202124; }
+body.dark-mode .form-divider { border-top-color: #444; }
+/* Navigasyon */
+body.dark-mode .main-nav { background-color: #181a1b; border-bottom-color: #444; }
+body.dark-mode .main-nav .logo { color: #8ab4f8; }
+body.dark-mode .nav-link { color: #e8e6e3; }
+body.dark-mode .nav-link:hover { background-color: #3e3e42; }
+body.dark-mode .nav-link.highlight-btn { background-color: #8ab4f8; color: #202124; }
+body.dark-mode .user-info { border-left-color: #495057; }
+body.dark-mode .user-info span, body.dark-mode .nav-user-email { color: #adb5bd; }
+body.dark-mode .user-info .logout-btn { color: #ff8c8c; }
+/* Aksiyon Butonları */
+body.dark-mode .action-btn { background-color: #343a40; border-color: #495057; color: #e8e6e3; }
+body.dark-mode .action-btn:hover { background-color: #495057; color: #fff; }
+body.dark-mode .download-button-main { background-color: #8ab4f8; color: #202124; }
+body.dark-mode .action-divider { background-color: #495057; }
+/* AI Bileşenleri */
+body.dark-mode .ai-summary-box { background-color: #1e293b; border-color: #334155; }
+body.dark-mode .ai-summary-box h4 { color: #93c5fd; }
+body.dark-mode .ai-summary-box p, body.dark-mode .ai-summary-box .keywords { color: #cbd5e1; }
+body.dark-mode .ai-summary-box .keywords strong { color: #93c5fd; }
+body.dark-mode .ai-summary-placeholder { background-color: #2c3e50; border-color: #495057; }
+body.dark-mode .ai-actions { border-top-color: #334155; }
+body.dark-mode .ai-action-btn { border-color: #4a5568; color: #93c5fd; }
+body.dark-mode .ai-action-btn:hover { background-color: #2c3e50; border-color: #93c5fd; }
+body.dark-mode .ai-assistant-launcher button { background-color: #343a40; border-color: #495057; color: #e8e6e3; }
+body.dark-mode .ai-assistant-launcher button:hover { background-color: #495057; color: #fff; }
+/* Sohbet Asistanı */
+body.dark-mode .chat-bubble { background-color: #8ab4f8; color: #202124; }
+body.dark-mode .chat-container { background-color: #2d2d30; }
+body.dark-mode .chat-header { background-color: #181a1b; border-bottom-color: #444; }
+body.dark-mode .chat-header h3 { color: #fff; }
+body.dark-mode .chat-header .chat-actions a, body.dark-mode .chat-header .chat-actions button { color: #adb5bd; }
+body.dark-mode .chat-message.assistant { background-color: #495057; color: #f8f9fa; }
+body.dark-mode .chat-message.user { background-color: #8ab4f8; color: #202124; }
+body.dark-mode .chat-message.assistant strong, body.dark-mode .chat-message.assistant b { color: #f8f9fa; }
+body.dark-mode .copy-chat-btn { background-color: rgba(255, 255, 255, 0.1); color: #adb5bd; }
+body.dark-mode .copy-chat-btn:hover { background-color: rgba(255, 255, 255, 0.2); color: #f8f9fa; }
+body.dark-mode .copy-chat-btn.copied-text { background-color: #0f5132; color: #a7f3d0; }
+body.dark-mode .chat-action-buttons, body.dark-mode .chat-input-area { border-top-color: #444; background-color: #181a1b; }
+body.dark-mode .sample-question-btn { border-color: #495057; color: #e8e6e3; }
+body.dark-mode .sample-question-btn:hover { background-color: #3e3e42; }
+body.dark-mode .chat-input-area textarea { background-color: #181a1b; border-color: #555; color: #e8e6e3; }
+body.dark-mode .chat-input-area textarea:focus { border-color: #8ab4f8; }
+body.dark-mode .chat-input-area button { background-color: #8ab4f8; color: #202124; }
+/* Diğer Bileşenler */
+body.dark-mode .theme-toggle-button { background-color: #2d2d30; color: #e8e6e3; border-color: #555; }
+body.dark-mode .icon-light { display: none; }
+body.dark-mode .icon-dark { display: block; }
+body.dark-mode .back-to-top { background-color: #8ab4f8; color: #202124; }
+body.dark-mode .modal-content { background-color: #2d2d30; }
+body.dark-mode .modal-close-button { background-color: #495057; color: #ced4da; }
+body.dark-mode .mini-spinner { border-left-color: #8ab4f8; }
+body.dark-mode .search-results-list li { background-color: #2c3e50; border-color: #495057; }
+body.dark-mode .search-results-list a { color: #8ab4f8; }
+body.dark-mode .search-results-list p { color: #adb5bd; }
+/* Panelim */
+body.dark-mode .panel-sidebar { background-color: #181a1b; border: 1px solid #3e3e42; }
+body.dark-mode .panel-sidebar h3 { border-bottom-color: #444; color: #f1f3f5; }
+body.dark-mode .folder-list-menu li a { color: #e8e6e3; }
+body.dark-mode .folder-list-menu li a:hover { background-color: #3e3e42; }
+body.dark-mode .folder-list-menu li.active a { background-color: #8ab4f8; color: #202124; }
+body.dark-mode .decision-count { background-color: rgba(255, 255, 255, 0.1); }
+body.dark-mode .folder-list-menu li.active .decision-count { background-color: rgba(0, 0, 0, 0.2); color: #fff; }
+body.dark-mode .delete-folder-btn { color: #495057; }
+body.dark-mode .delete-folder-btn:hover { color: #ff8c8c; }
+body.dark-mode .panel-content p { color: #adb5bd; }
+body.dark-mode .decision-meta { color: #6c757d; }
+body.dark-mode .remove-decision-btn { border-color: #495057; color: #ff8c8c; }
+/* Sayfalama */
+body.dark-mode .pagination li a, body.dark-mode .pagination li span { background-color: #2d2d30; border-color: #495057; color: #8ab4f8; }
+body.dark-mode .pagination li a:hover { background-color: #3e3e42; }
+body.dark-mode .pagination li.active span { background-color: #8ab4f8; color: #202124; border-color: #8ab4f8; }
+/* --- Arama İpuçları Kutusu --- */
+.help-box-container { 
+    margin-top: 30px; 
+    text-align: center; 
+}
+
+.help-box-toggle { 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px; 
+    text-decoration: none; 
+    color: #555; 
+    font-weight: 600; 
+    transition: color 0.2s; 
+    /* Ekrandaki bozuk görünümü düzeltmek için buton gibi stil verelim */
+    padding: 8px 12px;
+    border-radius: 8px;
+}
+
+.help-box-toggle:hover { 
+    color: #1e3a8a; 
+    background-color: #f1f3f5;
+}
+
+.help-box-toggle svg { 
+    width: 18px; 
+    height: 18px; 
+}
+
+.help-box { 
+    margin-top: 20px; 
+    padding: 20px; 
+    background-color: #f8f9fa; 
+    border: 1px solid #e9ecef; 
+    border-radius: 8px; 
+    text-align: left; 
+    line-height: 1.7; 
+}
+.help-box h4 { 
+    margin-top: 0; 
+    font-family: 'Roboto Slab', serif; 
+    color: #333; 
+}
+.help-box code { 
+    background-color: #e0e7ff; 
+    color: #3730a3; 
+    padding: 2px 6px; 
+    border-radius: 4px; 
+    font-family: monospace; 
+    font-weight: 600; 
+}
+.help-box i { 
+    font-style: italic; 
+    font-weight: 600; 
+    color: #555; 
+}
+
+/* Karanlık Mod İçin Düzeltmeler */
+body.dark-mode .help-box-toggle {
+    color: #adb5bd;
+}
+body.dark-mode .help-box-toggle:hover { 
+    color: #8ab4f8; 
+    background-color: #3e3e42;
+}
+body.dark-mode .help-box { 
+    background-color: #2c3e50; 
+    border-color: #495057; 
+}
+body.dark-mode .help-box h4 { 
+    color: #e8e6e3; 
+}
+body.dark-mode .help-box code { 
+    background-color: #312e81; 
+    color: #c7d2fe; 
+}
+body.dark-mode .help-box i { 
+    color: #bdc3c7; 
+}
+/* --- assets/css/style.css dosyasının "Navigasyon Barı" bölümünü güncelleyin --- */
+
+/* Mevcut .user-info ve .logout-btn stillerini silin */
+
+/* YENİ AÇILIR MENÜ STİLLERİ */
+.user-dropdown {
+    position: relative; /* Menü içeriğini buna göre konumlandır */
+    margin-left: 15px;
+    padding-left: 20px;
+    border-left: 1px solid #dee2e6;
+}
+
+.user-menu-button {
+    background-color: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s;
+}
+.user-menu-button:hover {
+    background-color: #f1f3f5;
+}
+
+.user-menu-button span {
+    font-weight: 600;
+    color: #495057;
+    font-size: 15px;
+}
+.user-menu-button svg {
+    color: #6c757d;
+}
+
+.dropdown-content {
+    position: absolute;
+    top: 110%; /* Butonun hemen altında başla */
+    right: 0;
+    background-color: white;
+    min-width: 200px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    z-index: 100;
+    padding: 10px 0;
+    overflow: hidden;
+}
+.dropdown-content a {
+    color: #333;
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-weight: 500;
+}
+.dropdown-content a:hover {
+    background-color: #f8f9fa;
+}
+.dropdown-content hr {
+    margin: 5px 0;
+    border: none;
+    border-top: 1px solid #f1f3f5;
+}
+.dropdown-content a.logout-link {
+    color: #d9534f;
+}
+.dropdown-content a.logout-link:hover {
+    background-color: #fdf2f2;
+}
+
+/* --- Karanlık Mod için Açılır Menü Stilleri --- */
+body.dark-mode .user-dropdown {
+    border-left-color: #495057;
+}
+body.dark-mode .user-menu-button:hover {
+    background-color: #3e3e42;
+}
+body.dark-mode .user-menu-button span {
+    color: #e8e6e3;
+}
+body.dark-mode .user-menu-button svg {
+    color: #adb5bd;
+}
+body.dark-mode .dropdown-content {
+    background-color: #343a40;
+    border-color: #495057;
+}
+body.dark-mode .dropdown-content a {
+    color: #e8e6e3;
+}
+body.dark-mode .dropdown-content a:hover {
+    background-color: #495057;
+}
+body.dark-mode .dropdown-content hr {
+    border-top-color: #495057;
+}
+body.dark-mode .dropdown-content a.logout-link {
+    color: #ff8c8c;
+}
+body.dark-mode .dropdown-content a.logout-link:hover {
+    background-color: #5d3838;
+}
+/* --- assets/css/style.css dosyasındaki ".dropdown-content" stillerinin altına ekleyin --- */
+
+.dropdown-content .dropdown-header {
+    padding: 10px 20px;
+    line-height: 1.4;
+}
+.dropdown-content .dropdown-header small {
+    font-size: 12px;
+    color: #6c757d;
+    display: block;
+}
+.dropdown-content .dropdown-header strong {
+    font-size: 14px;
+    color: #333;
+}
+
+/* Karanlık Mod */
+body.dark-mode .dropdown-content .dropdown-header small {
+    color: #adb5bd;
+}
+body.dark-mode .dropdown-content .dropdown-header strong {
+    color: #e8e6e3;
+}
+/* =================================================================== */
+/* --- 16. MOBİL UYUMLULUK (RESPONSIVE DESIGN) --- */
+/* =================================================================== */
+
+/* Tablet ve daha küçük ekranlar için (768px ve altı) */
+@media (max-width: 768px) {
+
+    body {
+        padding: 0; /* Sayfanın kenar boşluklarını sıfırla */
+    }
+
+    /* --- Genel Konteyner ve Başlık --- */
+    .container, .dashboard-container, .auth-container {
+        margin: 0;
+        padding: 20px 15px; /* Kenar boşluklarını azalt */
+        border-radius: 0; /* Kenar yuvarlaklığını kaldır */
+        border-top-width: 3px; /* Üst kenarlığı incelt */
+        box-shadow: none; /* Gölgeyi kaldır */
+    }
+
+    /* --- Navigasyon Barı --- */
+    .main-nav {
+        flex-direction: column; /* Öğeleri alt alta diz */
+        gap: 15px;
+        padding: 15px;
+    }
+    .nav-right {
+        flex-wrap: wrap; /* Sığmazsa alt satıra geç */
+        justify-content: center;
+        gap: 10px;
+    }
+    .user-dropdown {
+        border-left: none; /* Ayırıcı çizgiyi kaldır */
+        padding-left: 0;
+        margin-left: 0;
+    }
+
+    /* --- Karar Sayfası Başlığı --- */
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start; /* Sola hizala */
+        gap: 15px;
+    }
+    .header-actions {
+        width: 100%;
+        flex-wrap: wrap; /* Butonları alt satıra kaydır */
+        justify-content: flex-start;
+    }
+}
+/* --- assets/css/style.css sonuna ekleyin --- */
+
+/* Metin İçi Arama Çubuğu */
+.find-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.find-bar input {
+    flex-grow: 1;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 1rem;
+}
+.find-bar input:focus {
+    outline: none;
+    border-color: #1e3a8a;
+}
+.find-counter {
+    font-size: 0.9rem;
+    color: #6c757d;
+    white-space: nowrap; /* "0 sonuç" yazısının alt satıra kaymasını engelle */
+}
+.find-close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    color: #868e96;
+    cursor: pointer;
+}
+
+/* Arama Sonucu Vurgulama Stili */
+.search-highlight {
+    background-color: #ffd900; /* Fosforlu sarı */
+    color: #000;
+    border-radius: 3px;
+}
+
+/* Karanlık Mod */
+body.dark-mode .find-bar {
+    background-color: #343a40;
+    border-color: #495057;
+}
+body.dark-mode .find-bar input {
+    background-color: #181a1b;
+    border-color: #555;
+    color: #e8e6e3;
+}
+body.dark-mode .find-bar input:focus {
+    border-color: #8ab4f8;
+}
+body.dark-mode .find-counter {
+    color: #adb5bd;
+}
+body.dark-mode .find-close-btn {
+    color: #adb5bd;
+}
+
+/* Modal başlığını daha belirgin yap */
+#folder-modal .modal-content h3 {
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    font-size: 1.5rem;
+    color: #333;
+    margin-top: 0;
+}
+
+/* Mevcut klasörlerin listelendiği alan */
+#folder-list {
+    margin-bottom: 20px;
+}
+
+/* Klasör butonlarını yan yana dizmek için sarmalayıcı */
+.folder-buttons-wrapper {
+    display: flex;
+    flex-wrap: wrap; /* Sığmazsa alt satıra geç */
+    gap: 10px; /* Butonlar arası boşluk */
+    justify-content: center; /* Butonları ortala */
+}
+
+/* Tek bir klasör butonu */
+.folder-select-btn {
+    background-color: #f1f3f5;
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    padding: 10px 15px;
+    font-weight: 600;
+    color: #495057;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.folder-select-btn:hover {
+    background-color: #e9ecef;
+    border-color: #adb5bd;
+    transform: translateY(-2px);
+}
+
+/* "Yeni Klasör Oluştur" formu */
+#new-folder-form {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+
+/* --- Karanlık Mod Uyumluluğu --- */
+body.dark-mode #folder-modal .modal-content h3 {
+    color: #f1f3f5;
+}
+
+body.dark-mode .folder-buttons-wrapper {
+    /* Değişiklik gerekmez */
+}
+
+body.dark-mode .folder-select-btn {
+    background-color: #3e3e42;
+    border-color: #495057;
+    color: #e8e6e3;
+}
+
+body.dark-mode .folder-select-btn:hover {
+    background-color: #495057;
+    border-color: #6c757d;
+}
+
+body.dark-mode #new-folder-form {
+    border-top-color: #444;
+}
+/* --- Not Alma (Annotation) Mobil Uyumluluk Stilleri --- */
+
+@media (max-width: 768px) {
+    .selection-popup {
+        /* Mobil cihazlarda pop-up'ı ve butonları daha büyük yap */
+        padding: 8px;
+        gap: 8px;
+    }
+    .selection-popup button {
+        padding: 10px 15px;
+        font-size: 1rem; /* Fontu büyüt */
+    }
+}
