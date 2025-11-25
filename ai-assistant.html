@@ -1,0 +1,336 @@
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Destekli Sorgu Asistanı</title>
+    <!-- Tailwind CSS'i yüklüyoruz -->
+    <script src="https://karar.liyakat.net/assets/css/tailwind.css"></script>
+    <style>
+        /* Inter font ailesini Tailwind'e dahil ediyoruz */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        /* Yükleme animasyonu için stil */
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+         /* --- YENİ: Karanlık Mod Stilleri --- */
+        body.dark-mode { background-color: #2d2d30; }
+        body.dark-mode h1, body.dark-mode h3, body.dark-mode label { color: #fff; }
+        body.dark-mode p, body.dark-mode #explanationOutput { color: #adb5bd; }
+        body.dark-mode textarea { background-color: #181a1b; border-color: #555; color: #e8e6e3; }
+        body.dark-mode #resultContainer { background-color: #3e3e42; border-color: #555; }
+        body.dark-mode #queryOutput { background-color: #181a1b; color: #fff; }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+
+    <div class="bg-white shadow-xl rounded-2xl p-8 max-w-3xl w-full">
+        <h1 class="text-3xl font-bold text-gray-900 text-center mb-2">
+            Yapay Zeka Destekli Sorgu Asistanı
+        </h1>
+        <p class="text-gray-600 text-center mb-6">
+            Ne aramak istediğinizi doğal dilde yazın, yapay zeka sizin için özel arama sorgusunu oluştursun.
+        </p>
+
+        <!-- Kullanıcı Giriş Alanı -->
+        <div class="mb-4">
+            <label for="userInput" class="block text-sm font-medium text-gray-700 mb-2">
+                Arama İsteğiniz (Örn: "arsa payı ve inşaat içeren ama bozma sebebi içermeyen evraklar")
+            </label>
+            <textarea id="userInput" rows="4" class="w-full p-3 border border-gray-300 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition" placeholder="Aramak istediğiniz konuyu buraya yazın..."></textarea>
+        </div>
+
+        <!-- Buton -->
+        <button id="generateButton" class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:bg-blue-700 transition duration-300 disabled:bg-gray-400">
+            Sorgu Oluştur
+        </button>
+
+        <!-- Yükleme Göstergesi -->
+        <div id="loader" class="hidden flex justify-center items-center mt-6">
+            <div class="loader"></div>
+            <p class="ml-4 text-gray-600">Yapay zeka analiz ediyor...</p>
+        </div>
+
+        <!-- Hata Mesajı Alanı -->
+        <div id="errorContainer" class="hidden mt-6 p-4 bg-red-100 text-red-700 border border-red-300 rounded-lg">
+            <!-- Hata mesajı buraya eklenecek -->
+        </div>
+
+        <!-- Sonuç Alanı -->
+        <div id="resultContainer" class="hidden mt-6 border border-gray-200 bg-gray-50 rounded-lg p-6">
+            <!-- Başlık ve Kopyala Butonu -->
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="text-lg font-semibold text-gray-800">Oluşturulan Sorgu:</h3>
+                <button id="copyButton" class="bg-gray-200 text-gray-700 text-sm font-medium py-1 px-3 rounded-lg hover:bg-gray-300 transition">
+                    Kopyala
+                </button>
+            </div>
+            <!-- Sorgu Çıktısı -->
+            <div id="queryOutput" class="p-4 bg-gray-900 text-white font-mono text-sm rounded-lg mb-4 break-words">
+                <!-- AI tarafından oluşturulan sorgu buraya gelecek -->
+            </div>
+            
+            <h3 class="text-lg font-semibold text-gray-800 mb-2">Açıklaması:</h3>
+            <p id="explanationOutput" class="text-gray-700">
+                <!-- AI tarafından oluşturulan açıklama buraya gelecek -->
+            </p>
+        </div>
+    </div>
+
+    <script>
+        
+                // --- YENİ: Ana Pencereden Gelen Tema Mesajını Dinle ---
+        window.addEventListener('message', function(event) {
+            const data = event.data;
+            if (data && data.type === 'theme-change') {
+                if (data.theme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+            }
+        });
+        
+        // DOM elementlerini seçiyoruz
+        const userInput = document.getElementById('userInput');
+        const generateButton = document.getElementById('generateButton');
+        const loader = document.getElementById('loader');
+        const resultContainer = document.getElementById('resultContainer');
+        const queryOutput = document.getElementById('queryOutput');
+        const explanationOutput = document.getElementById('explanationOutput');
+        const errorContainer = document.getElementById('errorContainer');
+        const copyButton = document.getElementById('copyButton'); // Kopyala butonunu seç
+
+        // ÖNEMLİ: API Anahtarını boş bırakın. Sistem çalışma zamanında otomatik olarak dolduracaktır.
+        const apiKey = "AIzaSyAd7X-E-DWH6kDjm3bmx3aIoOEcVJmCh_c"; // Kullanıcının verdiği API key'i GÜVENLİK nedeniyle KULLANMIYORUZ.
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+
+        // Yapay zekaya (Gemini) öğrettiğimiz kurallar (Sistem Talimatı)
+        // Kullanıcının sağladığı metni temel alarak bir sistem talimatı oluşturuyoruz.
+        const systemPrompt = `
+Sen, karmaşık bir hukuki/resmi doküman arama sistemi için uzman bir "sorgu çevirmeni" yapay zekasısın.
+Görevin, kullanıcıdan gelen doğal dil taleplerini, aşağıdaki kurallara göre özel bir arama operatörü söz dizimine (syntax) dönüştürmektir.
+
+ARAMA OPERATÖRÜ KURALLARI:
+
+1.  **Basit OR (veya):** Kelimeler arasına boşluk koymak, kelimelerden herhangi birini (OR) getirir.
+    * Örnek: \`arsa payı\` -> 'arsa' VEYA 'payı' içerenler.
+
+2.  **Tam İfade (Exact Phrase):** Çift tırnak (\`"..."\`) içindeki ifadeyi tam olarak arar. Doğal dildeki "içeren", "geçen" gibi ifadeleri genellikle tam ifade olarak yorumlamalısın.
+    * Örnek: \`"arsa payı"\` -> 'arsa payı' kelime öbeğini tam olarak içerenler.
+
+3.  **İfadeler Arası OR (veya):** Birden fazla tırnaklı ifade, aralarında boşlukla yazılırsa, bu ifadelerden herhangi birini (OR) getirir.
+    * Örnek: \`"arsa payı" "bozma sebebi"\` -> 'arsa payı' VEYA 'bozma sebebi' içerenler.
+
+4.  **AND (ve) Operatörü (+):** İfadenin başına artı (\`+\`) koymak, o ifadenin dokümanda BULUNMASI ZORUNLU (AND) demektir. Kullanıcı "ve", "ayrıca", "hem o hem bu" gibi ifadeler kullanırsa bu operatörü kullan.
+    * Örnek: \`+"arsa payı" +"bozma sebebi"\` -> 'arsa payı' AND 'bozma sebebi' kelime öbeklerini içerenler.
+
+5.  **NOT (değil) Operatörü (-):** İfadenin başına eksi (\`-\`) koymak, o ifadenin dokümanda BULUNMAMASI ZORUNLU (NOT) demektir. Kullanıcı "ama ... olmasın", "hariç", "içermeyen" gibi ifadeler kullanırsa bu operatörü kullan.
+    * Örnek: \`+"arsa payı" -"bozma sebebi"\` -> 'arsa payı' içeren AMA 'bozma sebebi' İÇERMEYEN evraklar.
+
+KULLANICI TALEBİ:
+Kullanıcı sana doğal dilde bir arama isteği yazacak.
+
+SENİN GÖREVİN:
+Bu isteği analiz et ve SADECE ve SADECE aşağıdaki JSON formatında bir yanıt üret. Yanıtının başına veya sonuna asla \`\`\`json ... \`\`\` bloğu ekleme. Sadece saf JSON metni döndür.
+
+JSON FORMATI:
+{
+  "olusturulan_sorgu": "Buraya +\"ifade\" -\"ifade\" formatındaki sorguyu yaz",
+  "sorgu_aciklamasi": "Bu sorgunun kullanıcı için ne anlama geldiğini basitçe açıkla."
+}
+
+ÖRNEK SENARYO 1:
+Kullanıcı Talebi: "Bana içinde 'arsa payı' geçen ama 'bozma sebebi' geçmeyen evrakları bul."
+Senin Yanıtın (JSON):
+{
+  "olusturulan_sorgu": "+\"arsa payı\" -\"bozma sebebi\"",
+  "sorgu_aciklamasi": "İçeriğinde 'arsa payı' kelime öbeği bulunan, ancak 'bozma sebebi' kelime öbeği bulunmayan evraklar aranacak."
+}
+
+ÖRNEK SENARYO 2:
+Kullanıcı Talebi: "Hem arsa payı hem de inşaat kelimelerini istiyorum."
+Senin Yanıtın (JSON):
+{
+  "olusturulan_sorgu": "+\"arsa payı\" +\"inşaat\"",
+  "sorgu_aciklamasi": "İçeriğinde hem 'arsa payı' hem de 'inşaat' kelime öbeklerini (veya kelimelerini) içeren evraklar aranacak."
+}
+
+ÖRNEK SENARYO 3:
+Kullanıcı Talebi: "arsa payı veya bozma sebebi"
+Senin Yanıtın (JSON):
+{
+  "olusturulan_sorgu": "\"arsa payı\" \"bozma sebebi\"",
+  "sorgu_aciklamasi": "İçeriğinde 'arsa payı' VEYA 'bozma sebebi' kelime öbeklerinden en az birini içeren evraklar aranacak."
+}
+        `;
+
+        // Butona tıklama olayı
+        generateButton.addEventListener('click', handleGenerate);
+        copyButton.addEventListener('click', copyQueryToClipboard); // Kopyala butonu için olay dinleyici
+
+        // Ana fonksiyon
+        async function handleGenerate() {
+            const userQuery = userInput.value.trim();
+
+            if (!userQuery) {
+                showError("Lütfen ne aramak istediğinizi yazın.");
+                return;
+            }
+
+            // Arayüzü yükleme durumuna getir
+            setLoading(true);
+
+            // Gemini API için payload (veri yükü) oluştur
+            const payload = {
+                contents: [{ parts: [{ text: userQuery }] }],
+                systemInstruction: {
+                    parts: [{ text: systemPrompt }]
+                },
+                generationConfig: {
+                    // Gemini'den JSON formatında yanıt vermesini istiyoruz
+                    responseMimeType: "application/json",
+                    responseSchema: {
+                        type: "OBJECT",
+                        properties: {
+                            "olusturulan_sorgu": { "type": "STRING" },
+                            "sorgu_aciklamasi": { "type": "STRING" }
+                        },
+                        required: ["olusturulan_sorgu", "sorgu_aciklamasi"]
+                    }
+                }
+            };
+
+            try {
+                // API'ye isteği gönder (üstel geri çekilme ile)
+                const response = await fetchWithBackoff(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                if (!response.ok) {
+                    const errorData = await response.json();
+                    throw new Error(errorData.error?.message || `API hatası: ${response.status}`);
+                }
+
+                const result = await response.json();
+                
+                // Gelen yanıtı işle
+                const text = result.candidates?.[0]?.content?.parts?.[0]?.text;
+                if (!text) {
+                    throw new Error("Yapay zekadan geçerli bir yanıt alınamadı.");
+                }
+
+                // JSON metnini parse et
+                const parsedJson = JSON.parse(text);
+                const { olusturulan_sorgu, sorgu_aciklamasi } = parsedJson;
+
+                // Sonuçları ekranda göster
+                showResult(olusturulan_sorgu, sorgu_aciklamasi);
+
+            } catch (error) {
+                console.error("Hata:", error);
+                showError(`Bir hata oluştu: ${error.message}. Lütfen tekrar deneyin.`);
+            } finally {
+                // Yükleme durumunu bitir
+                setLoading(false);
+            }
+        }
+
+        // API istekleri için yeniden deneme mekanizması (Exponential Backoff)
+        async function fetchWithBackoff(url, options, retries = 3, delay = 1000) {
+            try {
+                const response = await fetch(url, options);
+                // 429 (Too Many Requests) veya 5xx (Sunucu Hataları) durumlarında yeniden dene
+                if (!response.ok && (response.status === 429 || response.status >= 500) && retries > 0) {
+                    // Yeniden deneme hatasını konsola yazdırma (talimatlara göre)
+                    // console.log(`Yeniden deneme (${retries})... ${delay}ms sonra.`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    return fetchWithBackoff(url, options, retries - 1, delay * 2); // Gecikmeyi ikiye katla
+                }
+                return response;
+            } catch (error) {
+                if (retries > 0) {
+                    // Yeniden deneme hatasını konsola yazdırma (talimatlara göre)
+                    // console.log(`Ağ hatası. Yeniden deneme (${retries})... ${delay}ms sonra.`);
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    return fetchWithBackoff(url, options, retries - 1, delay * 2);
+                }
+                throw error; // Son denemeden sonra hatayı fırlat
+            }
+        }
+
+        // Arayüz durumunu ayarlayan yardımcı fonksiyonlar
+        function setLoading(isLoading) {
+            generateButton.disabled = isLoading;
+            if (isLoading) {
+                loader.classList.remove('hidden');
+                resultContainer.classList.add('hidden');
+                errorContainer.classList.add('hidden');
+            } else {
+                loader.classList.add('hidden');
+            }
+        }
+
+        function showResult(query, explanation) {
+            queryOutput.textContent = query;
+            explanationOutput.textContent = explanation;
+            resultContainer.classList.remove('hidden');
+            errorContainer.classList.add('hidden');
+        }
+
+        function showError(message) {
+            errorContainer.textContent = message;
+            errorContainer.classList.remove('hidden');
+            resultContainer.classList.add('hidden');
+        }
+
+        // YENİ FONKSİYON: Sorguyu panoya kopyala
+        function copyQueryToClipboard() {
+            const queryText = queryOutput.textContent;
+            
+            // Güvenli olmayan (iframe) ortamlar için document.execCommand kullanıyoruz.
+            const textArea = document.createElement('textarea');
+            textArea.value = queryText;
+            textArea.style.position = 'fixed'; // Ekran dışında görünmez yap
+            textArea.style.left = '-9999px';
+            textArea.style.top = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            
+            try {
+                document.execCommand('copy');
+                // Kullanıcıya geri bildirim ver
+                copyButton.textContent = 'Kopyalandı!';
+                setTimeout(() => {
+                    copyButton.textContent = 'Kopyala';
+                }, 2000); // 2 saniye sonra metni geri değiştir
+            } catch (err) {
+                console.error('Kopyalama başarısız oldu:', err);
+                copyButton.textContent = 'Hata!';
+                setTimeout(() => {
+                    copyButton.textContent = 'Kopyala';
+                }, 2000);
+            }
+            
+            document.body.removeChild(textArea);
+        }
+
+    </script>
+</body>
+</html>
